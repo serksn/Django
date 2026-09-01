@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Тег: {{ tag.name }} - Мой блог{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">Статьи с тегом: #{{ tag.name }}</h1>
+
+{% for article in articles %}
+    <article class="bg-white p-6 mb-6 rounded shadow">
+        <h2 class="text-xl font-semibold mb-2">
+            <a href="{% url 'article_detail' article.id %}" class="hover:text-blue-500">{{ article.title }}</a>
+        </h2>
+        <p class="text-gray-500 text-sm mb-4">
+            Автор: {{ article.author.get_full_name }} | Дата: {{ article.published_date|date:"d.m.Y" }}
+        </p>
+        <p class="mb-4">{{ article.content|truncatewords:30 }}</p>
+        <div class="flex flex-wrap gap-2">
+            {% for tag in article.tags.all %}
+                <a href="{% url 'tag_articles' tag.slug %}" class="bg-gray-200 px-2 py-1 rounded hover:bg-blue-500 hover:text-white text-sm">
+                    #{{ tag.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </article>
+{% empty %}
+    <div class="text-center text-gray-500 py-10">
+        Статей с этим тегом пока нет.
+    </div>
+{% endfor %}
+{% endblock %}

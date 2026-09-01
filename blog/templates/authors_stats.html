@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Статистика авторов - Мой блог{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">Статистика авторов</h1>
+
+<table class="min-w-full bg-white rounded shadow overflow-hidden">
+    <thead class="bg-gray-800 text-white">
+        <tr>
+            <th class="px-4 py-2 text-left">Автор</th>
+            <th class="px-4 py-2 text-left">Количество статей</th>
+            <th class="px-4 py-2 text-left">Средняя длина статьи</th>
+            <th class="px-4 py-2 text-left">Всего тегов использовано</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for author in authors %}
+            <tr class="hover:bg-gray-100">
+                <td class="px-4 py-2">{{ author.get_full_name }}</td>
+                <td class="px-4 py-2">{{ author.total_articles }}</td>
+                <td class="px-4 py-2">{{ author.avg_content_length|floatformat:0 }} символов</td>
+                <td class="px-4 py-2">{{ author.total_tags }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4" class="px-4 py-6 text-center text-gray-400">
+                    Нет данных о авторах
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

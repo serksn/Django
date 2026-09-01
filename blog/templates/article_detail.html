@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}{{ article.title }} - Мой блог{% endblock %}
+
+{% block content %}
+<article class="bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-2">{{ article.title }}</h2>
+    <p class="text-gray-500 text-sm mb-4">
+        Автор: {{ article.author.get_full_name }} |
+        Опубликовано: {{ article.published_date|date:"d.m.Y H:i" }} |
+        Обновлено: {{ article.updated_at|date:"d.m.Y H:i" }}
+    </p>
+    <div class="mb-4 leading-relaxed">
+        {{ article.content|linebreaks }}
+    </div>
+    <div class="flex flex-wrap gap-2 mb-4">
+        {% for tag in article.tags.all %}
+            <a href="{% url 'tag_articles' tag.slug %}" class="bg-gray-200 px-2 py-1 rounded hover:bg-blue-500 hover:text-white text-sm">
+                #{{ tag.name }}
+            </a>
+        {% empty %}
+            <span class="text-gray-400">без тегов</span>
+        {% endfor %}
+    </div>
+
+    {% if related_articles %}
+        <div class="bg-gray-100 p-4 rounded">
+            <h3 class="text-lg font-semibold mb-2">Похожие статьи</h3>
+            {% for related in related_articles %}
+                <div class="bg-white p-3 rounded mb-2 shadow-sm">
+                    <h4 class="font-semibold">
+                        <a href="{% url 'article_detail' related.id %}" class="hover:text-blue-500">{{ related.title }}</a>
+                    </h4>
+                    <p class="text-gray-500 text-sm">
+                        {{ related.author.get_full_name }} | {{ related.published_date|date:"d.m.Y" }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</article>
+{% endblock %}
