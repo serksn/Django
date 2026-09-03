@@ -55,6 +55,18 @@ ROOT_URLCONF = 'news.urls'
 
 AUTH_USER_MODEL = 'account.CustomUser'
 
+# Указываем нашу кастомную модель пользователя
+AUTH_USER_MODEL = 'account.CustomUser'
+
+# URL для перенаправления после входа
+LOGIN_REDIRECT_URL = 'profile'
+
+# URL страницы входа
+LOGIN_URL = 'login'
+
+# URL для перенаправления после выхода
+LOGOUT_REDIRECT_URL = 'home'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

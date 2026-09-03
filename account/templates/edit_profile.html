@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Редактирование профиля{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-semibold mb-6 text-center">Редактирование профиля</h2>
+
+<form method="post" enctype="multipart/form-data" class="space-y-4 max-w-xl mx-auto">
+    {% csrf_token %}
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700">Имя</label>
+        {{ form.first_name }}
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700">Фамилия</label>
+        {{ form.last_name }}
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700">Специализация</label>
+        {{ form.specialization }}
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700">Ссылка на портфолио</label>
+        {{ form.portfolio_url }}
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700">О себе</label>
+        {{ form.bio }}
+    </div>
+
+    <div class="flex items-center gap-3 pt-2">
+        <button type="submit" class="inline-flex items-center justify-center px-4 py-2 rounded
+               bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 transition">
+            Сохранить
+        </button>
+        <a href="{% url 'profile' %}" class="inline-flex items-center justify-center px-4 py-2 rounded
+               bg-gray-500 text-white text-sm font-medium hover:bg-gray-600 transition">
+            Отмена
+        </a>
+    </div>
+</form>
+{% endblock %}

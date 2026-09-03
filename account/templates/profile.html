@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-semibold mb-6">Профиль пользователя</h2>
+
+<div class="flex flex-col md:flex-row gap-8 items-start">
+
+    <div class="flex-1 space-y-2">
+        <p><span class="font-semibold">Email:</span> {{ user.email }}</p>
+        <p><span class="font-semibold">Имя:</span> {{ user.first_name }}</p>
+        <p><span class="font-semibold">Фамилия:</span> {{ user.last_name }}</p>
+
+        {% if user.specialization %}
+            <p><span class="font-semibold">Специализация:</span> {{ user.specialization }}</p>
+        {% endif %}
+
+        {% if user.portfolio_url %}
+            <p>
+                <span class="font-semibold">Портфолио:</span>
+                <a href="{{ user.portfolio_url }}" target="_blank"
+                   class="text-blue-500 hover:text-blue-600 underline">
+                    {{ user.portfolio_url }}
+                </a>
+            </p>
+        {% endif %}
+
+        {% if user.bio %}
+            <hr class="my-3">
+            <p class="font-semibold">О себе:</p>
+            <p>{{ user.bio }}</p>
+        {% endif %}
+
+        <hr class="my-4">
+
+        <a href="{% url 'edit_profile' %}" class="inline-flex items-center justify-center px-4 py-2 rounded
+               bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 transition">
+            Редактировать профиль
+        </a>
+    </div>
+</div>
+{% endblock %}
