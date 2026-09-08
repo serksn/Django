@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# settings.py
+import os
+
+# Путь к директории для медиафайлов
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL-префикс для доступа к медиафайлам
+MEDIA_URL = '/media/'
 
 # Application definition
 

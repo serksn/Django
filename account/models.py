@@ -28,7 +28,8 @@ class CustomUser(AbstractUser):
     username = models.CharField(
         max_length=150,
         unique=True,
-        blank=True
+        blank=True,
+        null=True
     )
 
     email = models.EmailField(unique=True)
@@ -46,6 +47,8 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+    
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.email
@@ -53,6 +56,3 @@ class CustomUser(AbstractUser):
     class Meta:
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
-
-    def __str__(self):
-        return self.email
